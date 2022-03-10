@@ -17,8 +17,9 @@ router.get('/', async function (req, res, next) {
 })
 router.post('/', async (req, res, next) => {
     try {
-        const userfind = await mongoose.findOne({ user: req.body.user })
-        if (userfind) return res.status(400).send('user alrede regestrit')
+        const {user,password}=req.body
+        const userfind = await mongoose.findOne({ user})
+        if (userfind) return res.status(400).send('user alrede registries')
         
         const data = new mongoose(req.body)
 

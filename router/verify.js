@@ -9,7 +9,7 @@ const { isValidObjectId } = require('mongoose')
 
 router.post('/', async (req, res, next) => {
     const { userid, token } = req.body
-    if (!isValidObjectId(userid)) return res.status(400).send('your id dos not viledat')
+    // if (!isValidObjectId(userid)) return res.status(400).send('your id dos not viledat')
     const data = await mongoose.findById(userid)
     if (!data) return res.status(400).send('sorry user not found')
     if (data.ver) return res.status(400).send('this id is already verfition')

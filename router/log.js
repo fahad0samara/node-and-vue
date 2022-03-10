@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('../model/mong')
-const bcrypt= require('bcrypt');
+const  bcrypt= require('bcrypt');
 
 
 router.get('/',async function(req, res, next) {
@@ -14,8 +14,11 @@ router.get('/',async function(req, res, next) {
 })
 router.post('/',async (req, res, next)=>{
 try{
-    const userfind=await mongoose.findOne({user:req.body.user})
-    if(!userfind) return res.status(400).send('user alrede regestrit')
+    const {user,password} = req.body
+    const data=await mongoose.findOne({user})
+    if(!data) return res.status(400).send('user not registries')
+    const match=await data.comparPassword(password)
+    if(!match) return res.status(400).send('the password is incorrect')
 
    res.send('user registries')
 }catch(err){
